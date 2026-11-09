@@ -14,6 +14,10 @@
 
 It is intended for projects that need a controlled REST API for CMS structure, published content, routes, menus, blocks, sections, and media.
 
+## Documentation
+
+[Armonic documentation](https://armonic.softspring.es/6.0/components/cms-api-plugin)
+
 ## Installation
 
 ```bash
