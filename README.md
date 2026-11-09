@@ -16,7 +16,7 @@ It is intended for projects that need a controlled REST API for CMS structure, p
 
 ## Documentation
 
-[Armonic documentation](https://armonic.softspring.es/6.0/components/cms-api-plugin)
+Armonic usage documentation for this experimental package is planned for `6.1@dev`.
 
 ## Installation
 
