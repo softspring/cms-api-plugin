@@ -57,3 +57,8 @@ This package exposes Armonic CMS queries and controlled operations through share
 - Manage contents, versions, routes, menus, blocks, sections and media using the CMS workflow.
 - Read resources, including drafts, and render version previews without publication.
 - Enforce operation scopes, CMS permissions and explicit confirmation for publication and deletion.
+
+## Optional version SEO statistics
+
+- Return deterministic frequencies, density and emphasis for a selected content version when the SEO plugin is enabled.
+- Require CMS_API_READ and leave versions and metadata unchanged.

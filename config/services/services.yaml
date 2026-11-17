@@ -10,6 +10,7 @@ services:
             - '../../src/DependencyInjection/*'
             - '../../src/Application/Operation/OperationFormHelper.php'
             - '../../src/Application/Query/AnalyticsQuery.php'
+            - '../../src/Application/Query/SeoStatisticsQuery.php'
 
     Softspring\CmsApiPlugin\Controller\:
         resource: '../../src/Controller/*'

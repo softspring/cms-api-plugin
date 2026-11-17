@@ -22,12 +22,14 @@
         "phpunit/phpunit": "^12.5",
         "rector/rector": "^2.6.7",
         "softspring/cms-analytics-plugin": "6.1.*@dev",
+        "softspring/cms-seo-plugin": "6.1.*@dev",
         "symfony/polyfill-php85": "^1.33",
         "symfony/yaml": "^6.4 || ^7.4 || ^8.0"
     },
     "suggest": {
         "nelmio/api-doc-bundle": "Provides optional OpenAPI documentation for the REST endpoints",
-        "softspring/cms-analytics-plugin": "Provides optional site and page statistics queries"
+        "softspring/cms-analytics-plugin": "Provides optional site and page statistics queries",
+        "softspring/cms-seo-plugin": "Provides optional version SEO word statistics"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

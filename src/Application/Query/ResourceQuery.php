@@ -9,6 +9,7 @@ use Softspring\CmsBundle\Model\ContentVersionInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 final class ResourceQuery
@@ -24,6 +25,7 @@ final class ResourceQuery
         private readonly ContentPreviewQuery $previews,
         private readonly OperationRegistry $registry,
         private readonly AuthorizationCheckerInterface $security,
+        private readonly ?SeoStatisticsQuery $seo = null,
     ) {}
 
     public function read(string $resource, ?string $id = null, array $filters = []): array
@@ -37,6 +39,14 @@ final class ResourceQuery
         $locale = $filters['locale'] ?? null;
         $site = $filters['site'] ?? null;
         $result = match ($resource) {
+            'seo_statistics' => ($this->seo ?? throw new ServiceUnavailableHttpException(null, 'The CMS SEO plugin is not enabled.'))->analyze(
+                $type ?? throw new BadRequestHttpException('Content type is required.'),
+                $id ?? throw new BadRequestHttpException('Content identifier is required.'),
+                $filters['version'] ?? throw new BadRequestHttpException('Version identifier is required.'),
+                $locale,
+                $site,
+                isset($filters['limit']) ? (int) $filters['limit'] : null,
+            ),
             'content_preview' => $this->previews->preview(
                 $type ?? throw new BadRequestHttpException('Content type is required.'),
                 $id ?? throw new BadRequestHttpException('Content identifier is required.'),
