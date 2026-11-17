@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Softspring\CmsApiPlugin\Application\Query;
 
+use Softspring\CmsBundle\Serialization\AiInstructionsSerializer;
 use Softspring\MediaBundle\Exception\InvalidTypeException;
 use Softspring\MediaBundle\Type\MediaTypesCollection;
 
@@ -55,7 +56,7 @@ class MediaTypeQuery
             'versionKeys' => array_keys($config['versions'] ?? []),
             'pictureKeys' => array_keys($config['pictures'] ?? []),
             'videoSetKeys' => array_keys($config['video_sets'] ?? []),
-        ];
+        ] + AiInstructionsSerializer::summarize($config);
 
         if ($includeRawConfig) {
             $description['config'] = $this->sanitize($config);

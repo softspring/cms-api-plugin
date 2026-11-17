@@ -4,21 +4,33 @@ declare(strict_types=1);
 
 namespace Softspring\CmsApiPlugin\Application\Operation;
 
+use Softspring\Component\FormSchema\Schema\SchemaExtractor;
+use Softspring\CmsBundle\Serialization\AiInstructionsSerializer;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 
 final class FormSchema
 {
+    public function __construct(private readonly SchemaExtractor $extractor) {}
+
     public function describe(FormInterface $form): array
     {
-        return $this->view($form->createView());
+        $schema = $this->extractor->extract($form);
+        foreach (['_token', '_ok'] as $internal) {
+            unset($schema['properties'][$internal]);
+        }
+        if (isset($schema['required'])) {
+            $schema['required'] = array_values(array_diff($schema['required'], ['_token', '_ok']));
+        }
+
+        return ['schema' => $schema] + $this->view($form->createView());
     }
 
     private function view(FormView $view, int $depth = 0): array
     {
         $vars = $view->vars;
         $schema = ['name' => $vars['name'], 'required' => $vars['required'] ?? false,
-            'disabled' => $vars['disabled'] ?? false, 'types' => $vars['block_prefixes'] ?? []];
+            'disabled' => $vars['disabled'] ?? false, 'types' => $vars['block_prefixes'] ?? []] + AiInstructionsSerializer::summarize($vars);
         if (in_array('password', $schema['types'], true)) {
             return $schema;
         }
@@ -36,6 +48,12 @@ final class FormSchema
             foreach ($view->children as $name => $child) {
                 $schema['fields'][$name] = $this->view($child, $depth + 1);
             }
+            if (isset($vars['allowed_modules'])) {
+                $schema['allowedModules'] = $vars['allowed_modules'];
+            }
+            if (isset($vars['prototypes'])) {
+                $schema['prototypes'] = $this->prototypes($vars['prototypes'], $depth + 1);
+            }
             if (isset($vars['prototype'])) {
                 $schema['prototype'] = $this->view($vars['prototype'], $depth + 1);
                 $schema['allowAdd'] = $vars['allow_add'] ?? false;
@@ -44,6 +62,23 @@ final class FormSchema
         }
 
         return $schema;
+    }
+
+    private function prototypes(array $prototypes, int $depth): array
+    {
+        if ($depth > 12) {
+            return [];
+        }
+        $result = [];
+        foreach ($prototypes as $name => $prototype) {
+            if ($prototype instanceof FormView) {
+                $result[$name] = $this->view($prototype, $depth);
+            } elseif (is_array($prototype)) {
+                $result[$name] = $this->prototypes($prototype, $depth + 1);
+            }
+        }
+
+        return $result;
     }
 
     private function choices(iterable $choices): array

@@ -15,10 +15,11 @@ use function trim;
 
 class ConfigurationContextQuery
 {
-    private const SECTIONS = ['sites', 'layouts', 'modules', 'contents', 'menus', 'blocks', 'plugins'];
+    private const SECTIONS = ['sites', 'layouts', 'modules', 'contents', 'menus', 'blocks', 'media_types', 'plugins'];
 
     public function __construct(
         private readonly CmsConfigurationSerializer $configurationSerializer,
+        private readonly MediaTypeQuery $mediaTypes,
     ) {}
 
     public function getConfigurationContext(
@@ -64,6 +65,10 @@ class ConfigurationContextQuery
 
             if (in_array('blocks', $sections, true)) {
                 $context['blocks'] = $this->configurationSerializer->blocks($includeRawConfig);
+            }
+
+            if (in_array('media_types', $sections, true)) {
+                $context['mediaTypes'] = $this->mediaTypes->list($includeRawConfig)['mediaTypes'];
             }
 
             if (in_array('plugins', $sections, true)) {

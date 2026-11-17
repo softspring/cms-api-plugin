@@ -54,6 +54,8 @@ This package exposes Armonic CMS queries and controlled operations through share
 ## Controlled CMS operations
 
 - List operations and inspect actual Symfony forms before executing changes.
+- Generate `form.schema` through Form Schema and retain runtime fields, values, choices and grouped module prototypes.
+- Register a Form Schema extractor for CMS module collections and their allowed module identifiers.
 - Manage contents, versions, routes, menus, blocks, sections and media using the CMS workflow.
 - Read resources, including drafts, and render version previews without publication.
 - Enforce operation scopes, CMS permissions and explicit confirmation for publication and deletion.
@@ -62,3 +64,10 @@ This package exposes Armonic CMS queries and controlled operations through share
 
 - Return deterministic frequencies, density and emphasis for a selected content version when the SEO plugin is enabled.
 - Require CMS_API_READ and leave versions and metadata unchanged.
+
+## Element usage instructions
+
+- Expose configured `meta.ai_instructions` as `aiInstructions` without raw configuration, including media types in configuration context.
+- Return a text-only instruction catalog with operation schemas for available CMS definitions and their containers.
+- Carry module and container guidance in runtime prototype metadata alongside Form Schema output.
+- Keep usage guidance separate from authorization and actual Symfony form validation.
