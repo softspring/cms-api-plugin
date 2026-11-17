@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Softspring\CmsApiPlugin\Application\Operation;
 
+use Softspring\CmsApiPlugin\Application\Query\ElementInstructionsQuery;
 use Softspring\Component\CrudlController\Config\Configuration;
 use Softspring\CmsBundle\Config\CmsConfig;
 use Softspring\CmsBundle\Translator\TranslatableContext;
@@ -37,6 +38,7 @@ final class OperationService
         private readonly RouterInterface $router,
         private readonly RequestStack $requests,
         private readonly FormSchema $schema,
+        private readonly ElementInstructionsQuery $elementInstructions,
         private readonly CmsConfig $cmsConfig,
         private readonly TranslatableContext $translations,
         private readonly FormRegistryInterface $formRegistry,
@@ -114,7 +116,7 @@ final class OperationService
                 $helper->dispatchFormInit();
             }
             if (!$execute) {
-                return ['operation' => $operation, 'context' => $context, 'form' => $form ? $this->schema->describe($form) : null];
+                return ['operation' => $operation, 'context' => $context, 'form' => $form ? $this->schema->describe($form) : null, 'aiInstructions' => $this->elementInstructions->all()];
             }
             if ($form) {
                 $form->submit($this->files($data, $temporaryFiles), true);

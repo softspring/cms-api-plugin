@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Softspring\CmsApiPlugin\Application\Query;
 
+use Softspring\CmsBundle\Serialization\AiInstructionsSerializer;
 use Softspring\CmsBundle\Config\CmsConfig;
 use Softspring\CmsBundle\Model\SiteInterface;
 
@@ -157,7 +158,7 @@ class ConfigurationQuery
                 'port' => $site->getCanonicalPort(),
             ],
             'metadata' => $site->getMetadata(),
-        ];
+        ] + AiInstructionsSerializer::summarize($site->getConfig() ?? []);
 
         if ($includeRawConfig) {
             $summary['config'] = $this->sanitize($site->getConfig() ?? []);
@@ -180,7 +181,7 @@ class ConfigurationQuery
                 'id' => $id,
                 'label' => $config['label'] ?? $config['name'] ?? $id,
                 'keys' => array_keys($config),
-            ];
+            ] + AiInstructionsSerializer::summarize($config);
 
             if (array_key_exists('enabled', $config)) {
                 $configured[$id]['enabled'] = (bool) $config['enabled'];

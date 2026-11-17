@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Softspring\CmsApiPlugin\Application\Query;
 
+use Softspring\CmsBundle\Serialization\AiInstructionsSerializer;
 use Softspring\CmsBundle\Config\CmsConfig;
 use Softspring\CmsBundle\Model\SiteInterface;
 use Softspring\CmsBundle\Serialization\SiteSerializer;
@@ -54,7 +55,7 @@ class SiteQuery
                 'host' => $site->getCanonicalHost(),
                 'port' => $site->getCanonicalPort(),
             ],
-        ];
+        ] + AiInstructionsSerializer::summarize($site->getConfig() ?? []);
 
         if ($includeConfig) {
             $data['config'] = $site->getConfig();
