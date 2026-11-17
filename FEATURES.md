@@ -2,7 +2,7 @@
 
 Functional definition for `softspring/cms-api-plugin`.
 
-This package exposes selected Armonic CMS data through read-only JSON HTTP endpoints.
+This package exposes Armonic CMS queries and controlled operations through shared services and JSON HTTP endpoints.
 
 ## Purpose
 
@@ -41,10 +41,19 @@ This package exposes selected Armonic CMS data through read-only JSON HTTP endpo
 
 ## Current Limits
 
-- The package currently exposes read-only endpoints.
+- Mutations require application-provided CMS_API_READ, CMS_API_WRITE, CMS_API_PUBLISH and CMS_API_DELETE authorization and the existing CMS permissions.
+- Destructive operations and publication require explicit confirmation.
 - Authentication and authorization are expected to be configured by the host application.
 - The package does not ship frontend assets.
 
 ## Shared application services
 
 - Shared application queries live in this plugin and serve REST, MCP, and AI consumers. REST route imports and Swagger/Nelmio documentation are optional; legacy *Api services remain deprecated compatibility subclasses.
+
+
+## Controlled CMS operations
+
+- List operations and inspect actual Symfony forms before executing changes.
+- Manage contents, versions, routes, menus, blocks, sections and media using the CMS workflow.
+- Read resources, including drafts, and render version previews without publication.
+- Enforce operation scopes, CMS permissions and explicit confirmation for publication and deletion.
