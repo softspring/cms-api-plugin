@@ -1,0 +1,3 @@
+services:
+    Softspring\CmsApiPlugin\Application\Query\AnalyticsQuery:
+        autowire: true

@@ -6,7 +6,9 @@ services:
 
     Softspring\CmsApiPlugin\:
         resource: '../../src/*'
-        exclude: '../../src/DependencyInjection/*'
+        exclude:
+            - '../../src/DependencyInjection/*'
+            - '../../src/Application/Query/AnalyticsQuery.php'
 
     Softspring\CmsApiPlugin\Controller\:
         resource: '../../src/Controller/*'

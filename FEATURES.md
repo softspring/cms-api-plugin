@@ -35,8 +35,8 @@ This package exposes selected Armonic CMS data through read-only JSON HTTP endpo
 ## Extension Points
 
 - Add controllers under `Softspring\CmsApiPlugin\Controller` for new API resources.
-- Add resource services under `Softspring\CmsApiPlugin\Api` for reusable serialization and query logic.
-- Override or decorate API services when a project needs custom filtering, permissions, or payload shaping.
+- Reuse and extend application queries under `Softspring\CmsApiPlugin\Application\Query` instead of adding CMS business logic to HTTP adapters.
+- Override or decorate query services when a project needs custom filtering, permissions, or payload shaping.
 - Reuse CMS model interfaces from `softspring/cms-bundle`, `softspring/cms-sections-plugin`, and `softspring/media-bundle` to keep API output consistent.
 
 ## Current Limits
@@ -44,3 +44,7 @@ This package exposes selected Armonic CMS data through read-only JSON HTTP endpo
 - The package currently exposes read-only endpoints.
 - Authentication and authorization are expected to be configured by the host application.
 - The package does not ship frontend assets.
+
+## Shared application services
+
+- Shared application queries live in this plugin and serve REST, MCP, and AI consumers. REST route imports and Swagger/Nelmio documentation are optional; legacy *Api services remain deprecated compatibility subclasses.

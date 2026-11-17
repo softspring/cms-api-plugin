@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Softspring\CmsApiPlugin\Controller;
 
 use OpenApi\Attributes as OA;
-use Softspring\CmsApiPlugin\Api\BlockApi;
 use Softspring\CmsApiPlugin\Api\RequestQuery;
+use Softspring\CmsApiPlugin\Application\Query\BlockQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class BlockController
 {
     public function __construct(
-        private readonly BlockApi $blockApi,
+        private readonly BlockQuery $blockApi,
         private readonly RequestQuery $requestQuery,
     ) {}
 

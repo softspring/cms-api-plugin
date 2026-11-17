@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Softspring\CmsApiPlugin\Controller;
 
 use OpenApi\Attributes as OA;
-use Softspring\CmsApiPlugin\Api\ContentApi;
 use Softspring\CmsApiPlugin\Api\RequestQuery;
+use Softspring\CmsApiPlugin\Application\Query\ContentQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class ContentController
 {
     public function __construct(
-        private readonly ContentApi $contentApi,
+        private readonly ContentQuery $contentApi,
         private readonly RequestQuery $requestQuery,
     ) {}
 
