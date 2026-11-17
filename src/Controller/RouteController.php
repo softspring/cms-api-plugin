@@ -6,7 +6,7 @@ namespace Softspring\CmsApiPlugin\Controller;
 
 use OpenApi\Attributes as OA;
 use Softspring\CmsApiPlugin\Api\RequestQuery;
-use Softspring\CmsApiPlugin\Api\RouteApi;
+use Softspring\CmsApiPlugin\Application\Query\RouteQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class RouteController
 {
     public function __construct(
-        private readonly RouteApi $routeApi,
+        private readonly RouteQuery $routeApi,
         private readonly RequestQuery $requestQuery,
     ) {}
 

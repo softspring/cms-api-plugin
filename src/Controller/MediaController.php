@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Softspring\CmsApiPlugin\Controller;
 
 use OpenApi\Attributes as OA;
-use Softspring\CmsApiPlugin\Api\MediaApi;
 use Softspring\CmsApiPlugin\Api\RequestQuery;
+use Softspring\CmsApiPlugin\Application\Query\MediaQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class MediaController
 {
     public function __construct(
-        private readonly MediaApi $mediaApi,
+        private readonly MediaQuery $mediaApi,
         private readonly RequestQuery $requestQuery,
     ) {}
 

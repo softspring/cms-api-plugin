@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Softspring\CmsApiPlugin\Controller;
 
 use OpenApi\Attributes as OA;
-use Softspring\CmsApiPlugin\Api\ConfigResourceApi;
 use Softspring\CmsApiPlugin\Api\RequestQuery;
+use Softspring\CmsApiPlugin\Application\Query\ConfigurationQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class ContentTypesController
 {
     public function __construct(
-        private readonly ConfigResourceApi $configResourceApi,
+        private readonly ConfigurationQuery $configResourceApi,
         private readonly RequestQuery $requestQuery,
     ) {}
 

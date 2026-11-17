@@ -6,7 +6,7 @@ namespace Softspring\CmsApiPlugin\Controller;
 
 use OpenApi\Attributes as OA;
 use Softspring\CmsApiPlugin\Api\RequestQuery;
-use Softspring\CmsApiPlugin\Api\SectionApi;
+use Softspring\CmsApiPlugin\Application\Query\SectionQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class SectionController
 {
     public function __construct(
-        private readonly SectionApi $sectionApi,
+        private readonly SectionQuery $sectionApi,
         private readonly RequestQuery $requestQuery,
     ) {}
 
